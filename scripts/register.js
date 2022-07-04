@@ -27,17 +27,17 @@ registerBtn.addEventListener('click', function () {
         sameUser = true;
       }
     }
-    if (userData.firstName === '') {
+    if (userData.firstName.trim() === '') {
       alert('Please enter first name!');
       firstNameInput.focus();
       return false;
     }
-    if (userData.lastName === '') {
+    if (userData.lastName.trim() === '') {
       alert('Please enter last name!');
       lastNameInput.focus();
       return false;
     }
-    if (userData.username === '') {
+    if (userData.username.trim() === '') {
       alert('Please enter username!');
       usernameInput.focus();
       return false;

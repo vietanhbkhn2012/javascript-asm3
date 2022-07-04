@@ -80,14 +80,12 @@ async function displayNews(endPoints, country, category, q, pageSize, page) {
     if (!response.ok) throw `Error ${response.status}: ${dataObject.message}`;
     // Render data
     if (dataArr.length) renderData(dataArr);
-    else if (q.length && !dataArr.length) newsContainer.innerHTML = `<p><b>${q}</b> was not found in any document.</p>`;
-    else newsContainer.innerHTML = `<p>Couldn't find any articles on <b>${category}</b>.</p>`;
+    else if (q.length && !dataArr.length) newsContainer.innerHTML = `<b>${q}</b> was not found in any document.`;
+    else newsContainer.innerHTML = `Couldn't find any articles on <b>${category}</b>.`;
   } catch (error) {
     if (error.message == 'Failed to fetch') {
       navPageNum.classList.add('d-none');
-      document.getElementsByTagName('body')[0].innerHTML = `
-          <h5 class="position-relative text-center" style="top: 100px;">ERR_INTERNET_DISCONNECTED</h5>
-      `;
+      newsContainer.innerHTML = `ERR_INTERNET_DISCONNECTED`;
     } else {
       newsContainer.innerHTML = `${error}`;
       nextBtn.classList.add('d-none');
