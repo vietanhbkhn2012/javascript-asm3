@@ -26,6 +26,9 @@ const previousBtn = document.getElementById('btn-prev');
 const nextBtn = document.getElementById('btn-next');
 const pageNumber = document.getElementById('page-num');
 let totalResults;
+const apiKey = '1f5004a966ec4e4b8b02457700243131';
+// const apiKey = 'f092d1497a8f4cf5a8a86ac1d6467115';
+// const apiKey = '859d890300f1444d985f90483097420e';
 
 // Display each news
 function html(data) {
@@ -52,7 +55,7 @@ function html(data) {
 // Render data
 function renderData(dataArr) {
   newsContainer.innerHTML = '';
-  dataArr.forEach((data) => {
+  dataArr.forEach(data => {
     newsContainer.insertAdjacentHTML('beforeend', html(data));
   });
 }
@@ -60,21 +63,10 @@ function renderData(dataArr) {
 // Display the news
 async function displayNews(endPoints, country, category, q, pageSize, page) {
   try {
-    const apiKey1 = '1f5004a966ec4e4b8b02457700243131';
-    const apiKey2 = 'f092d1497a8f4cf5a8a86ac1d6467115';
-    const apiKey3 = '859d890300f1444d985f90483097420e';
-    let response;
-    const res = async (apiKey) => {
-      response = await fetch(`https://newsapi.org/v2/${endPoints}?country=${country}&category=${category}&q=${q}&pageSize=${pageSize}&page=${page}&apiKey=${apiKey}`);
-      return response.ok;
-    };
-    // Check apiKeys
-    (await res(apiKey1)) || (await res(apiKey2)) || (await res(apiKey3));
+    const response = await fetch(`https://newsapi.org/v2/${endPoints}?country=${country}&category=${category}&q=${q}&pageSize=${pageSize}&page=${page}&apiKey=${apiKey}`);
     // Get the content of the articles
     const dataObject = await response.json();
     const dataArr = dataObject.articles || [];
-    console.log(response);
-    console.log(dataObject);
     totalResults = dataObject.totalResults || 0;
     // Throw an exception error
     if (!response.ok) throw `Error ${response.status}: ${dataObject.message}`;
